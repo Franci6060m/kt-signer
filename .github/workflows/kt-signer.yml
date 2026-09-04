@@ -1,0 +1,23 @@
+name: Key Transparency signer
+
+on:
+  schedule:
+    - cron: '*/6 * * * *'
+  workflow_dispatch: {}
+
+jobs:
+  sign:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install signer dependencies
+        run: npm install pg tweetnacl --no-save
+      - name: Run kt-signer
+        env:
+          SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+          KT_SIGNER_KEY_ID: ${{ secrets.KT_SIGNER_KEY_ID }}
+          KT_SIGNER_PRIVATE_KEY: ${{ secrets.KT_SIGNER_PRIVATE_KEY }}
+        run: node scripts/kt-signer.js
