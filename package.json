@@ -1,0 +1,9 @@
+{
+  "name": "kt-signer",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "pg": "^8.11.0",
+    "tweetnacl": "^1.0.3"
+  }
+}
